@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"> -->
+		<script>
+			document.write('<meta name="viewport" content="width=640, initial-scale=' + window.screen.width / 640 + ',user-scalable=no>');
+		</script>
+		<title> $TITLE </title>
+		<!-- write your code here -->
+		<script>
+
+			// 设置进度条
+			function setBarPercent(percent) {
+				var x = 372 * percent / 100;
+				x = x-372;
+				document.getElementById("loadingBar").style.backgroundPositionX = x +"px";
+				if (percent === 100) {
+					document.getElementById("loading").style.display = "none";
+				}
+			}
+		</script>
+		$CENTER_STYLE
+	</head>
+
+	<body style="margin:0px; background: #000;">
+			
+		<div id="$ANIM_CONTAINER_ID" style="background-color:$BG; width:$WTpx; height:$HTpx">
+			<canvas id="$CANVAS_ID" width="$WT" height="$HT" style="position: absolute; display: $CANVAS_DISP; background-color:$BG;"></canvas>
+			<input type="text" id="nick" class="" placeholder="" style="position: absolute;
+			top: 803px;
+			left: 215px;
+			width: 250px;
+			height: 60px;
+			text-align: left;
+			font-size: 25px;
+			color: #fff;
+			display: none;
+			background: #0000;
+			border: none;
+			outline: none;">
+			<input type="text" id="xsos" class="" placeholder="" style="position: absolute;
+    top: 625px;
+    left: 87px;
+    width: 397px;
+    height: 30px;
+    text-align: left;
+    font-size: 24px;
+    color: #000;
+    display: none;
+    border: none;
+    outline: none;">
+			<input type="text" id="zcos" class="" placeholder="" style="position: absolute;
+    top: 625px;
+    left: 87px;
+    width: 397px;
+    height: 30px;
+    text-align: left;
+    font-size: 24px;
+    color: #000;
+    display: none;
+    border: none;
+    outline: none;">
+			<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:$WTpx; height:$HTpx; position: absolute; left: 0px; top: 0px; display: $CANVAS_DISP;">
+			</div>
+			<canvas id="danmu" style="position: absolute; top: 0;width: 100%;height: 30%;background-color: rgba(0,0,0,0)">你的浏览器不支持canvas</canvas>
+			<div id="name"></div>
+		</div>
+		<div id="loading" style="position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: #001824;">
+			<div style="position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				width: 100%;
+				height: 300px;
+				margin: auto;
+				background: #001824;
+				text-align: center;">
+				<img src="./loading.gif">
+				<br>
+				<div id="loadingBar" style="display: inline-block;
+					height: 15px;
+					width: 374px;
+					background: #0000;
+					border: 1px solid #43cabf;
+					border-radius: 7px;
+					background-image: url(./bar.png);
+					background-position-x: -372px;
+					background-repeat: no-repeat;">
+				</div>
+			</div>
+		</div>
+		<div id="bgmIco" onclick="setMute()" style="position: relative;background-position-x: 0px;left: 555px; top: 30px; width: 55px; height: 55px; display: block;background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAAA3CAMAAADaBI/2AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAADhGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxMzggNzkuMTU5ODI0LCAyMDE2LzA5LzE0LTAxOjA5OjAxICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ4bXAuZGlkOjU3YmNiZmIxLThiNjItOTY0Ny05OTA3LWQ3ZjIyNDMxZmE4MiIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpEMTk5ODI0MEI4QkYxMUU4QUVFODg3MDI5OEU0QzQ0RSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpEMTk5ODIzRkI4QkYxMUU4QUVFODg3MDI5OEU0QzQ0RSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxNyAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpjMGM3OTI2NC0zZWE4LTg0NDUtYjNiMi01MDNhYTYwZTRjNTEiIHN0UmVmOmRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDpjYTQ4OWYzOS1iOGJmLTExZTgtYWY5YS1lMzI1ZjIzN2UwODgiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4Gt+OpAAAAulBMVEVMaXEAAAAAAAAAAAAEBAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD///+0tLT6+vppaWksLCz9/f3i4uIJCQkODg7c3NwUFBSJiYlBQUEiIiJHR0eRkZGrq6v19fXAwMDGxsbw8PB5eXmwsLCGhobT09McHBzQ0NA5OTlwcHBVVVUzMzOmpqZjY2Pr6+tOTk6BgYHn5+e6urqgoKDLy8tdXV2bm5ucXaNuAAAAE3RSTlMAbcPt/vJYAd6eB2Q+JOWkijHACI3fdgAABAtJREFUWMPF2OliojAQAGBULNpr22UMhAByyuF93+//WgtBFCwgWNvNDxXkI0omk4Nh/nvhPmvteqvJ881WvV375H6Sca/tBp8qjfYr90Ps+aXFZ5TWy/MPMO7lnc8p7y/co9lbPb5KXnm7rbPvdUxhFp+rvz2WPTWjC9SJg8Eedayd1VMwuHODpeebTw9k3Eek9CPCW0E8/2Cjq4AkEHrwwT2M/YkuM5G7Hl41gNbB0pR++sM9lGkS6soZLT5zwJIz4J2MiR7JBA3EnBATbIV+9fEI9kS/68KO5EU0LyrLcfj+9H32RoOrD32+oKgjN4zu5tt3GfeX/u9iFsDBUg/e/nLfY9EzGaMjf6MMN3s28VzuZM9hCpKlEbnleA13w8T0nGKLnVyFMTXa3ig7uIL+ulfOR9FVtSSbbUARKzAuTOY66n6timhrB4E0gstdpG2Y6Lkk00eAhNKMeQ1PHN2rJ8KOvZ4Nm/lCD4LhcnoBYVi/phgxAXy1JGPaYfSg/lX+sWFpnVJg0rGSFby2r9jUBWlcjnHhIDzB6YTnS5NLeyQdv0bB/2hwV2zoAPLKMOYzPHJ66UfZ6SQTUdLpsAheP68Z28dWGUYDTMaTstXxgzkNsi/MWJVhtA1WIJauztzQVriTMeHI79l8aXeAoBXquUwuZkzYfXaj8tWNw5hu5TJzWsiYMKtvt+WrUyG4YSOXKXAkBYyhEWaVr46EMcbmMsGGwTCfUTea51W3Mo+Cl3I8CHF1mUwcBLk+l9Gn0vOzqyM9UPYIp5wMh/hhZjOiFjDa5n4vuzrPNoIeqqScDqs4VAoYyWE0ok0pmZxFPXbR/TyUdEbY2er3MtpfBbh0F88FUJTTz0RBOIlS6k9MMIm7+R2MZqMZGOeREPc1zYLIsT4sFazoSWeNzknsDhblWvc8uLpm+LqPI1Nb96fpScXSvKTo6iwaSebnVqADE1Fy5zsGaJcB6BZb9YZXLGo8enTqnJ2JN7DzZsVRDe2SrAPL1RWjswBWOqeRqYNcP7e2IVonJg+3mOoDNkmKRXMcAc/4MsW01eTU6CabIBjpSRbFJlGcMrWJdHJSq8BmCtiHJIvmpysQSlTnSCQ9rb3N5Dnskuw0+57nh8dlgoON60l7CTbtp1i0tpAVRb3lcP/LkqQ6O62cRHdQDA3kZyy4qrN4MeMOhgXsgHokazlZnZ1WvbPNRstTbBf7JHuxXJ2d1vT6HnezV0+iQxdN2VsBlVkMSRdJC/ZrLjGRZDySnfdjxC1Inp5en+yQ3SfF2zhV2WW3aWwhPDAPs6HMyroxsZawWau3N6mqsstemir4SziV4BZayS24iiy1U6hq08XisBJJtQ3GKuy3t09/fXM4tYfNNu7a+i5i/wCJ05GzArOZOAAAAABJRU5ErkJggg==)"></div>
+		<script src="./barrager.js"></script>
+		$PRELOADER_DIV
+		$CREATEJS_LIBRARY_SCRIPTS
+		$ANIMATE_CC_SCRIPTS
+		$SCRIPT_START
+		setBarPercent(40);
+		var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+
+		function init() {
+		canvas = document.getElementById("$CANVAS_ID");
+		anim_container = document.getElementById("$ANIM_CONTAINER_ID");
+		dom_overlay_container = document.getElementById("dom_overlay_container");
+		$CREATE_LOADER
+		$LOAD_MANIFEST
+		$PRELOAD_ASSETS
+		}
+		$HANDLE_FILE_LOAD_START
+		$HANDLE_FILE_LOAD_BODY
+		$HANDLE_FILE_LOAD_END
+		setBarPercent(60);
+		$HANDLE_COMPLETE_START
+		//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+		$CREATE_STAGE
+		//Registers the "tick" event listener.
+		setBarPercent(80);
+		$START_ANIMATION
+		//Code to support hidpi screens and responsive scaling.
+		setBarPercent(100);
+		$RESP_HIDPI
+		document.getElementById("loading").style.display = "none";
+		playSound("bgm", 1);
+		$HANDLE_COMPLETE_END
+		$PLAYSOUND
+		$SCRIPT_END
+		<!-- write your code here -->
+
+		<script>
+			// 屏蔽滑动
+			document.body.addEventListener('touchmove', function (e) {
+				e.preventDefault();
+			}, {
+				passive: false
+			});
+			document.getElementById("xsos").oninput = function (e) {
+				globalData.os = e.target.value;
+			}
+			document.getElementById("zcos").oninput = function (e) {
+				globalData.os = e.target.value;
+			}
+			init();
+			// 显示输入框
+			function showInput(id) {
+				document.getElementById(id).style.display = "block";
+			}
+			// 隐藏输入框
+			function hideInput(id) {
+				document.getElementById(id).style.display = "none";
+			}
+			// 获取输入框的值
+			function getInputValue(id) {
+				return document.getElementById(id).value;
+			}
+			// 清除输入框的值
+			function removeInputValue(id) {
+				return document.getElementById(id).value = "";
+			}
+			// 静音 Boolean mute
+			function setMute() {
+				var mute = createjs.Sound.muted;
+				createjs.Sound.muted = !mute;
+				if (!mute) {
+					document.getElementById("bgmIco").style.backgroundPositionX = "-50px";
+				} else {
+					document.getElementById("bgmIco").style.backgroundPositionX = "0px";
+				}
+			}
+			var DANMU = new Barrager("danmu");
+			// 发送弹幕
+			function sendDanmu(msgArray = []) {
+				DANMU.putMsg(msgArray);
+			}
+			// 清除/关闭弹幕
+			function clearDanmu() {
+				DANMU.clear();
+			}
+
+			function get(url, success, fail) {
+				var xhr = null;
+				if (XMLHttpRequest) {
+					xhr = new XMLHttpRequest();
+				} else if (ActiveXObject) {
+					xhr = new ActiveXObject();
+				}
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+							typeof success === "function" && success(xhr.responseText, xhr);
+						} else {
+							typeof fail === "function" && fail(xhr);
+						}
+					}
+				}
+				xhr.open("get", url, true);
+				xhr.send();
+			}
+
+			function post(url, data, success, fail) {
+				var xhr = null;
+				if (XMLHttpRequest) {
+					xhr = new XMLHttpRequest();
+				} else if (ActiveXObject) {
+					xhr = new ActiveXObject();
+				}
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.onreadystatechange = function () {
+					if (xhr.readyState === 4) {
+						if (xhr.status === 200) {
+							typeof success === "function" && success(xhr.responseText, xhr);
+						} else {
+							typeof fail === "function" && fail(xhr);
+						}
+					}
+				}
+				xhr.open("post", url, true);
+				xhr.send(data);
+			}
+
+		</script>
+	</body>
+
+</html>
